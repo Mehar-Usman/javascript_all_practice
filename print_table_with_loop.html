@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>print table with loop</title>
+</head>
+<body>
+    
+ Start:   <input type="number" id="demo1"><br><br>
+ End:   <input type="number" id="demo2"><br><br>
+ Table:   <input type="number" id="demo3"><br><br>
+ <button onclick="print_table()">Click Me For print Table</button><br>
+ <p id="result"></p>
+
+
+</body>
+<script>
+    function print_table(){
+    var start = document.getElementById('demo1').value;
+    var end = document.getElementById('demo2').value;
+    var select_table = document.getElementById('demo3').value;
+    if(start!=""&& end!=""&&select_table!=""){
+            for (var i = start; i<=end; i++){
+              var create_table = i*select_table;
+                document.getElementById('result').innerHTML += i + " x "+ select_table +" = " + create_table+"<br>"; 
+            
+            }
+    }
+    else{
+        alert('plese fill the field')
+    }
+    }
+</script>
+</html>                                                                                             

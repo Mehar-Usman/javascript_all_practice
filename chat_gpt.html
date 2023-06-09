@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .box {
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+  margin: 5px;
+}
+
+.selected {
+  border: 2px solid black;
+}
+
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <label for="box-number">Enter the number of boxes you want to create:</label>
+        <input type="number" id="box-number" name="box-number">
+        <label for="box-color">Select the background color for the boxes:</label>
+        <select id="box-color" name="box-color">
+          <option value="red">Red</option>
+          <option value="blue">Blue</option>
+          <option value="green">Green</option>
+          <option value="yellow">Yellow</option>
+        </select>
+        <button onclick="createBoxes()">Create Boxes</button>
+      </div>
+      
+      <div id="box-container"></div>
+      
+      <div>
+        <button onclick="shuffleBoxes()">Shuffle Selected Boxes</button>
+      </div>
+      
+    
+</body>
+<script>
+    let boxContainer = document.getElementById('box-container');
+let boxes = [];
+
+function createBoxes() {
+  let numberOfBoxes = document.getElementById('box-number').value;
+  let boxColor = document.getElementById('box-color').value;
+  
+  for(let i = 0; i < numberOfBoxes; i++) {
+    let box = document.createElement('div');
+    box.classList.add('box');
+    box.style.backgroundColor = boxColor;
+    box.addEventListener('click', function() {
+      if (box.classList.contains('selected')) {
+        box.classList.remove('selected');
+      } else {
+        box.classList.add('selected');
+      }
+    });
+    boxContainer.appendChild(box);
+    boxes.push(box);
+  }
+}
+
+function shuffleBoxes() {
+  let selectedBoxes = document.querySelectorAll('.selected');
+  if (selectedBoxes.length === 2) {
+    let firstBoxIndex = boxes.indexOf(selectedBoxes[0]);
+    let secondBoxIndex = boxes.indexOf(selectedBoxes[1]);
+    [boxes[firstBoxIndex], boxes[secondBoxIndex]] = [boxes[secondBoxIndex], boxes[firstBoxIndex]];
+    boxContainer.innerHTML = '';
+    boxes.forEach(box => boxContainer.appendChild(box));
+  }
+}
+
+
+let cars = [
+  {name: 'Honda', model: '2022', color: 'white', price: 1},
+  {name: 'City', model: '2022', color: 'white', price: 1},
+  {name: 'Crolla', model: '2022', color: 'white', price: 1},
+  {name: 'Mehran', model: '2022', color: 'white', price: 1}
+]
+let sum2 = 0;
+// let res = cars.map(car => {
+//   return {title: car.name, car_price: car.price}
+// })
+// let add = 0;
+// let sum = cars.reduce(function(a, b) {
+//   console.log(a.price, b.price)
+//   return add += a.price
+// })
+
+var total = cars.reduce(function(a, b){ return sum2 + a.price; }); 
+total= cars.reduce(function (acc, obj) { return acc + obj.price; }, 0);
+console.log("total is : " + total ); 
+// console.log( sum)
+
+</script>
+</html>

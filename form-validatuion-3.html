@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body{
+            /* background-color: #b2b2b2; */
+            background-image: linear-gradient(90deg, #020024 0%, #090979 35%, #00d4ff 100%);        
+
+          }
+          .table {
+            background-color: #fff;
+            color: #333;
+            border-radius: 8px;
+            overflow: hidden;
+            width: 800px;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+
+        .table thead {
+            background-color: #343a40;
+            color: #fff;
+        }
+
+        .table th,
+        .table td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .table tbody tr:hover {
+            background-color: #ddd;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+</head>
+<body>
+    <!-- Create Form In Javascript -->
+    <div class="container text-white">
+        <div class="row">
+            <div class="col-md-12  my-5">
+                <h1  class="text-center">Validation in Javascript</h1>
+                <div class="mb-3">
+                  <p>Name:</p>  
+                  <input type="text" class="form-control" placeholder="Enter Name" id="name">
+                </div>
+                <div class="mb-3">
+                    <p>Email:</p>  
+                    <input type="text" class="form-control" placeholder="Enter Email" id="eamil">
+                  </div>
+                  <div class="mb-3">
+                    <p>Phone. N0#:</p>  
+                    <input type="text" class="form-control" placeholder="Enter Phone Number" id="phone">
+                  </div>
+                  <div class="mb-3">
+                    <p>Password:</p>  
+                    <input type="password" class="form-control" placeholder="Enter Password" id="password">
+                  </div>
+                  <div class="mb-3">
+                    <p>Confirm Password:</p>  
+                    <input type="password" class="form-control" placeholder="Enter Confirm Password" id="confirm_password">
+                  </div>
+                  <input type="submit" value="Submit" onClick="checkVal(this.form); return false;" />
+                  <div id="output"></div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    // var obj ={
+    //     name:$('name').value,
+    //     name:$('name').value,
+    //     name:$('name').value,
+    //     name:$('name').value,
+    //     name:$('name').value
+    // }
+    function checkVal(form) {
+        var allInputs = document.getElementsByTagName('input');
+        var output = '<table class="table"><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody>';
+          if(allInputs!==""){
+            for (var i = 0; i < allInputs.length; i++) {
+            if (allInputs[i].type === 'text' || allInputs[i].type === 'password') {
+                output += '<tr><td>' + allInputs[i].placeholder + '</td><td>' + allInputs[i].value + '</td></tr>';
+            }
+                   
+       
+        }
+        output += '</tbody></table>';
+        document.getElementById('output').innerHTML = output;
+          }
+          else{
+            alert('Please Fill All the fields')
+          }
+
+    }
+
+    function $(id){
+       return document.getElementById(id);
+    }
+
+</script>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Form Validation</title>
+  <!-- Add Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script>
+    function validateForm() {
+      // Retrieve form inputs
+      var name = document.forms["myForm"]["name"].value;
+      var email = document.forms["myForm"]["email"].value;
+      var phone = document.forms["myForm"]["phone"].value;
+      var password = document.forms["myForm"]["password"].value;
+      var confirmPassword = document.forms["myForm"]["confirmPassword"].value;
+
+      // Validation rules
+      if (name == "") {
+        alert("Please enter your name.");
+        return false;
+      }
+
+      if (email == "") {
+        alert("Please enter your email.");
+        return false;
+      }
+
+      if (!validateEmail(email)) {
+        alert("Please enter a valid email address.");
+        return false;
+      }
+
+      if (phone == "") {
+        alert("Please enter your phone number.");
+        return false;
+      }
+
+      if (!validatePhone(phone)) {
+        alert("Please enter a valid phone number.");
+        return false;
+      }
+
+      if (password == "") {
+        alert("Please enter a password.");
+        return false;
+      }
+
+      if (password.length < 6) {
+        alert("Password must be at least 6 characters long.");
+        return false;
+      }
+
+      if (confirmPassword == "") {
+        alert("Please confirm your password.");
+        return false;
+      }
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        return false;
+      }
+
+      // All validations passed
+      alert("Form submitted successfully!");
+      return true;
+    }
+
+    function validateEmail(email) {
+      // Basic email validation
+      var emailRegex = /\S+@\S+\.\S+/;
+      return emailRegex.test(email);
+    }
+
+    function validatePhone(phone) {
+      // Basic phone number validation
+      var phoneRegex = /^\d{11}$/;
+      return phoneRegex.test(phone);
+    }
+  </script>
+</head>
+<body class="bg-success">
+  <div class="container mt-5 text-white h3">
+    <form name="myForm" onsubmit="return validateForm()">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" name="name">
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="text" class="form-control" id="email" name="email">
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone:</label>
+        <input type="text" class="form-control" id="phone" name="phone">
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" class="form-control" id="password" name="password">
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
+      </div>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+
+ 

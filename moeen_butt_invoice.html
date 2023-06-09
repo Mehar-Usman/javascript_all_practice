@@ -1,0 +1,225 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"crossorigin="anonymous"/>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous">
+  </script>
+    <title>Invoice</title>
+    <style>
+        .q{
+            width: 100px;
+        }
+        .p{
+            width: 150px;
+        }
+        .m{
+            width: 125px;
+        }
+        /* .shop{
+            font-size: 52px;
+            background: -webkit-linear-gradient(#eee, #333);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .ad{
+            font-size: 20px;
+            background: -webkit-linear-gradient(#eee, #333);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        } */
+        .sl{
+            width: 200px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div id="hide" class="col-md-12">
+                <div>
+                    <table>
+                        <thead><h1 class="text-center">
+                            INVOICE
+                        </h1></thead>
+                        <tr>
+                        </tr>
+                        <tr>
+                            
+                            <td>NAME:<input id="name" type="text" placeholder="Customer Name"></td>
+                            <td>PHONE NO:<input class="m" id="mobile" type="text" placeholder="03*********"></td>
+                            <td>DESCRIPTION:<input class="d" id="description" type="text" placeholder="Item Enter"></td>
+                            <td>QYT:<input class="q" id="qyt" type="text" placeholder="Qty Enter"></td>
+                            <td>PRICE:<input class="p" id="price" type="text" placeholder="Price Enter"></td>
+                            <td>Discount:<input class="p" id="disc" type="text" placeholder="disc%"></td>
+                        </tr>
+                    </table>
+                    <div class="mt-3">
+                        <button onclick="_add()">ADD BILL Item</button>
+                    </div> 
+                    <div  class="d-flex mt-2">
+                        <button onclick="genrate()" class="btn bg-primary">Genrate Bill</button>
+                        </div>   
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div>
+                    <h1 class="text-center shop">Mobeen Butt Computers</h1>
+                    <p class="text-center ad ">Deals In All Computers , Laptops, or Leds</p>
+                    <p class="text-center ad">Shop No 12 Madinah Center Near Waqas Baryani Hall Road Lhr
+                        (Mobeen butt :03224244134)
+                    </p>
+                    <p id="current-date"></p>
+                    <div class="h6" id="customer-info">
+                        
+                    </div>
+      
+                </div>
+                <table class="table text-secondary">
+                    
+                    <thead>
+
+                        <th>SR#</th>
+                        <th>DESCRIPTION</th>
+                        <th>QTY</th>
+                        <th>PRICE</th>
+                        <th>Sub Total</th>
+                        <th>Discount</th>
+                        <th>Total</th>
+                    </thead>  
+                    <tbody id="bill">
+                    </tbody>
+                    
+                </table>
+                   <div class="text-end">
+                   <p class="h5" id="sub-total"></p>
+                   <p class="h5" id="disc-total"></p>
+                   <p class="h3" id="g-total"></p>
+               </div> 
+
+                </div>
+            </div>
+        </div>
+    <!-- </div> -->
+
+    
+</body>
+<script>
+    let bill = [];
+    let id   = null;
+    let customerInfoAdded = false;
+
+
+  
+    function _add() {
+    let obj = {
+        description: $("description").value,
+        qyt: $("qyt").value,
+        price: $("price").value,
+        Amount: $("qyt").value * $("price").value,
+        disc: $("disc").value,
+        total:""
+    };
+    if (!customerInfoAdded) {
+        obj.name = $("name").value;
+        obj.mobile = $("mobile").value;
+        customerInfoAdded = true;
+
+        
+        const name = $("name").value;
+        const mobile = $("mobile").value;
+
+        
+        const customerInfo = $("customer-info");
+        customerInfo.innerHTML = `Customer Name: ${name} <br> Mobile No: ${mobile}`;
+    }
+    if (id == null) {
+        bill.push(obj);
+    } else {
+        bill[id] = obj;
+    }
+    billadd();
+    totalBill();
+    }
+
+
+
+
+
+   
+
+    function billadd(){
+        let output = ""
+        let counter = 1
+        
+        for(index in bill) {
+            let per = (parseInt($("disc").value)/100)*bill[index].Amount;
+            bill[index].disc=per;
+            bill[index].total= bill[index].Amount-per;
+
+            output +="\
+                        <tr>\
+                             <td>" + counter + "</td>\
+                             <td>" + bill[index].description + "</td>\
+                             <td>" + bill[index].qyt + "</td>\
+                             <td>" + bill[index].price+" Rs" + "</td>\
+                             <td>" + bill[index].Amount+" Rs" +"</td>\
+                             <td>" + bill[index].disc +" Rs" +"</td>\
+                             <td>" + bill[index].total +" Rs" +"</td>\
+                             </tr>\
+                        ";
+                        counter++;       
+        }
+        $("bill").innerHTML = output;
+        
+    }
+  
+    let today = new Date();
+    let currentDate = today.toLocaleDateString();
+        $("current-date").innerHTML = "DATE: " + currentDate;
+    
+    function totalBill() {
+        let subTotal = 0;
+        let discTotal = 0;
+        let grandTotal = 0;
+        for (let i = 0; i < bill.length; i++) {
+                subTotal += bill[i].Amount;
+                discTotal += bill[i].disc;
+                grandTotal += bill[i].total;
+             }
+
+    
+        const _subtotal = $("sub-total");
+        _subtotal.innerHTML = subTotal + " = Sub Total ";
+        const _discTotal = $("disc-total");
+        _discTotal.innerHTML = discTotal + " = Discount Total ";
+        const _gTotal= $("g-total");
+        _gTotal.innerHTML = grandTotal + " = Grand Total ";
+    }
+
+    function genrate(){
+        hide()
+        window.print()
+        
+    }
+    function hide(){
+        $("hide").style.display = "none";
+    }
+
+
+
+    function $(id){
+        return document.getElementById(id);
+    }
+</script>
+</html>

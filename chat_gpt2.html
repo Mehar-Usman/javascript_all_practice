@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+     .box {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+  text-align: center;
+  line-height: 100px;
+  font-size: 20px;
+  font-weight: bold;
+  border: 1px solid #000;
+  cursor: pointer;
+}
+
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box-container"></div>
+
+<form id="box-form">
+  <label for="box-number">Box Number:</label>
+  <input type="number" id="box-number" name="box-number" min="1" max="10" required>
+  
+  <label for="background-color">Background Color:</label>
+  <input type="color" id="background-color" name="background-color" value="#ffffff" required>
+  
+  <label for="text-color">Text Color:</label>
+  <input type="color" id="text-color" name="text-color" value="#000000" required>
+  
+  <button type="submit">Add Box</button>
+</form>
+
+<button id="shuffle-button" disabled>Shuffle Boxes</button>
+
+      
+</body>
+<script>
+const boxContainer = document.getElementById('box-container');
+const boxForm = document.getElementById('box-form');
+const shuffleButton = document.getElementById('shuffle-button');
+
+let boxes = [];
+
+boxForm.addEventListener('submit', event => {
+  event.preventDefault();
+  
+  const boxNumber = parseInt(document.getElementById('box-number').value);
+  const backgroundColor = document.getElementById('background-color').value;
+  const textColor = document.getElementById('text-color').value;
+  
+  for (let i = 0; i < boxNumber; i++) {
+    const box = document.createElement('div');
+    box.classList.add('box');
+    box.style.backgroundColor = backgroundColor;
+    box.style.color = textColor;
+    box.textContent = i + 1;
+    
+    box.addEventListener('click', () => {
+      box.classList.toggle('selected');
+      const selectedBoxes = boxes.filter(box => box.classList.contains('selected'));
+      shuffleButton.disabled = selectedBoxes.length !== 2;
+    });
+    
+    boxes.push(box);
+    boxContainer.appendChild(box);
+  }
+  
+  boxForm.reset();
+});
+
+shuffleButton.addEventListener('click', () => {
+  const selectedBoxes = boxes.filter(box => box.classList.contains('selected'));
+  const index1 = boxes.indexOf(selectedBoxes[0]);
+  const index2 = boxes.indexOf(selectedBoxes[1]);
+  
+  boxes[index1] = boxes.splice(index2, 1, boxes[index1])[0];
+  
+  boxContainer.innerHTML = '';
+  boxes.forEach(box => boxContainer.appendChild(box));
+  selectedBoxes.forEach(box => box.classList.remove('selected'));
+  shuffleButton.disabled = true;
+});
+let my_string = "Hello, world!";
+
+for (let i = 0; i < my_string.length; i++) {
+  console.log(my_string[i]);
+}
+
+const usman = [65, 44, 12, 4];
+    console.log(usman.map)
+    var salary = [
+        ["ABC", 24, 18000],
+        ["EFG", 30, 30000],
+        ["IJK", 28, 41000],
+        ["EFG", 31, 28000],
+    ];
+    console.log(salary[1][0])
+
+</script>
+</html>

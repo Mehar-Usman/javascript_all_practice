@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Random Quote Generator</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+
+    #quote {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    #author {
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <h1>Random Quote Generator</h1>
+  <div id="quoteContainer">
+    <p id="quote"></p>
+    <p id="author"></p>
+    <button onclick="generateQuote()">Generate Quote</button>
+  </div>
+
+  <script>
+    var quotes = [
+      {
+        quote: "Be yourself; everyone else is already taken.",
+        author: "Oscar Wilde"
+      },
+      {
+        quote: "Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.",
+        author: "Albert Einstein"
+      },
+      {
+        quote: "The only way to do great work is to love what you do.",
+        author: "Steve Jobs"
+      },
+      {
+        quote: "In three words I can sum up everything I've learned about life: it goes on.",
+        author: "Robert Frost"
+      },
+      {
+        quote: "You miss 100% of the shots you don't take.",
+        author: "Wayne Gretzky"
+      }
+    ];
+
+    function generateQuote() {
+      var randomIndex = Math.floor(Math.random() * quotes.length);
+      var randomQuote = quotes[randomIndex];
+
+      document.getElementById("quote").textContent = randomQuote.quote;
+      document.getElementById("author").textContent = "- " + randomQuote.author;
+    }
+  </script>
+</body>
+</html>

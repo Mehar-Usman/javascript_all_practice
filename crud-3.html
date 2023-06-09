@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student CRUD</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script> 
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-5">Student CRUD</h1>
+        <form id="student-form" >
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter name" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter email" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Gender</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="gender" id="male" value="male" checked>
+                    <label class="form-check-label" for="male">
+                        Male
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="gender" id="female" value="female">
+                    <label class="form-check-label" for="female">
+                        Female
+                    </label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Skills</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="skills" id="laravel" value="laravel">
+                    <label class="form-check-label" for="laravel">
+                        Laravel
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="skills" id="nodejs" value="nodejs">
+                    <label class="form-check-label" for="nodejs">
+                        Node.js
+                    </label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">City</label>
+                <select class="form-select" id="city" required>
+                    <option value="">Select city</option>
+                    <option value="lahore">Lahore</option>
+                    <option value="islamabad">Islamabad</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <table class="table mt-5">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Gender</th>
+                    <th>Skills</th>
+                    <th>City</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="student-table-body" >
+            </tbody>
+        </table>
+    </div>
+    <script>
+  // Get the form and the table body elements from the DOM
+const form = document.getElementById("student-form");
+const tableBody = document.getElementById("student-table-body");
+
+// Initialize an empty array to hold the student objects
+let students = [];
+
+// Add an event listener to the form submit event
+form.addEventListener("submit", (event) => {
+  // Prevent the default form submission behavior
+  event.preventDefault();
+
+  // Get the form input values
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const gender = document.querySelector('input[name="gender"]:checked').value;
+
+  // Initialize an empty array to hold the selected skills
+  const skills = [];
+
+  // Loop through all the checked skill checkboxes and add their values to the skills array
+  document.querySelectorAll('input[name="skills"]:checked').forEach((checkbox) => {
+    skills.push(checkbox.value);
+  });
+
+  // Get the selected city value
+  const city = document.getElementById("city").value;
+
+  // Create a student object with the input values
+  const student = {
+    name: name,
+    email: email,
+    gender: gender,
+    skills: skills,
+    city: city,
+  };
+
+  // Add the student object to the students array
+  students.push(student);
+
+  // Call the displayStudents function to update the table
+  displayStudents();
+
+  // Reset the form input fields
+  form.reset();
+});
+
+// Define a function to display the students in the table
+// function displayStudents() {
+//   // Clear the table body contents
+//   tableBody.innerHTML = "";
+
+//   // Loop through each student object in the students array and add a table row for each one
+//   students.forEach((student, index) => {
+//     const row = tableBody.insertRow();
+//     // Add the student object properties to the table row as table cells
+//     row.innerHTML = `
+//       <td>${student.name}</td>
+//       <td>${student.email}</td>
+//       <td>${student.gender}</td>
+//       <td>${student.skills.join(", ")}</td>
+//       <td>${student.city}</td>
+//       <td>
+//         <button type="button" class="btn btn-secondary" onClick="editStudent(${index})">Edit</button>
+//         <button type="button" class="btn btn-danger" onClick="deleteStudent(${index})">Delete</button>
+//       </td>
+//     `;
+//   });
+// }
+
+
+function displayStudents() {
+  // Clear the table body contents
+  tableBody.innerHTML = "";
+
+  // Loop through each student object in the students array and add a table row for each one
+  for (let i = 0; i < students.length; i++) {
+    const student = students[i];
+    const row = tableBody.insertRow();
+    // Add the student object properties to the table row as table cells
+    row.innerHTML = `
+      <td>${student.name}</td>
+      <td>${student.email}</td>
+      <td>${student.gender}</td>
+      <td>${student.skills.join(", ")}</td>
+      <td>${student.city}</td>
+      <td>
+        <button type="button" class="btn btn-secondary" onClick="editStudent(${i})">Edit</button>
+        <button type="button" class="btn btn-danger" onClick="deleteStudent(${i})">Delete</button>
+      </td>
+    `;
+  }
+}
+
+
+// Define a function to populate the form fields with the values of a selected student for editing
+function editStudent(index) {
+  // Get the student object from the students array using the provided index
+  const student = students[index];
+  // Set the form input values to the student object properties
+  document.getElementById("name").value = student.name;
+  document.getElementById("email").value = student.email;
+  document.getElementById(student.gender).checked = true;
+  // Loop through all the skill checkboxes and check the ones that match the selected student's skills
+  document.querySelectorAll('input[name="skills"]').forEach((checkbox) => {
+    if (student.skills.includes(checkbox.value)) {
+      checkbox.checked = true;
+    } else {
+      checkbox.checked = false;
+    }
+  });
+  // Set the city input value to the selected student's city
+  document.getElementById("city").value = student.city;
+
+
+
+  // Remove the student from the array
+  students.splice(index, 1);
+
+  // Re-display the students in the table
+  displayStudents();
+}
+
+function deleteStudent(index) {
+  // Remove the student from the array
+  students.splice(index, 1);
+
+  // Re-display the students in the table
+  displayStudents();
+}
+    </script>
+
+
+<!-- const sum = nums => nums.reduce((acc, num) => acc + num, 0);
+console.log(sum([1, 2, 3])); // Output: 6 -->

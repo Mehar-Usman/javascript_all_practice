@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Classes</title>
+</head>
+<body>
+    <p id="demo"></p>
+</body>
+<script>
+    // class CAR {
+    //     constructor(name,year){
+    //         this.name = name;
+    //         this.year = year;
+    //     }
+    //     age(x)
+    //     {
+    //         return x- this.year;
+    //     }
+    // }
+    // const date = new Date();
+    // let year = date.getFullYear();
+    // const MyAge = new CAR ('usman',2002);
+    // document.getElementById('demo').innerHTML = 'My Age is '+ MyAge.age(year) +'years old';
+
+
+    class person {
+        constructor (name,year){
+            this.name= name;
+            this.year = year;
+        }
+        age(usman){
+            return usman - this.year;
+        }
+    }
+    const date = new Date();
+    let year = date.getFullYear()
+    const myage = new person ('usman',2002);
+    document.getElementById('demo').innerHTML = 'I Am '+ myage.age(year) +" "+ "Years old";
+</script>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tic Tac Toe</title>
+	<style>
+		table {
+			border-collapse: collapse;
+			margin: auto;
+		}
+
+		td {
+			width: 100px;
+			height: 100px;
+			text-align: center;
+			font-size: 80px;
+			font-weight: bold;
+			border: 1px solid black;
+			cursor: pointer;
+		}
+
+		td:hover {
+			background-color: lightgray;
+		}
+	</style>
+</head>
+<body>
+  <h1 style="text-align: center; font-size: 70px;">Tic Tac toe</h1>
+	<table>
+		<tr>
+			<td id="0"></td>
+			<td id="1"></td>
+			<td id="2"></td>
+		</tr>
+		<tr>
+			<td id="3"></td>
+			<td id="4"></td>
+			<td id="5"></td>
+		</tr>
+		<tr>
+			<td id="6"></td>
+			<td id="7"></td>
+			<td id="8"></td>
+		</tr>
+	</table>
+
+	<script>
+		let currentPlayer = 'X';
+		let board = ['', '', '', '', '', '', '', '', ''];
+		const winningCombos = [
+			[0, 1, 2],
+			[3, 4, 5],
+			[6, 7, 8],
+			[0, 3, 6],
+			[1, 4, 7],
+			[2, 5, 8],
+			[0, 4, 8],
+			[2, 4, 6]
+		];
+		const cells = document.querySelectorAll('td');
+
+		function handleClick(event) {
+			const cellIndex = parseInt(event.target.id);
+			if (board[cellIndex] !== '') {
+				alert('This cell has already been played. Please choose another one.');
+				return;
+			}
+			board[cellIndex] = currentPlayer;
+			event.target.textContent = currentPlayer;
+			event.target.style.color = currentPlayer === 'X' ? 'blue' : 'red';
+			const winner = checkWinner();
+			if (winner) {
+				alert(`Congratulations! Player ${winner} has won the game!`);
+				reset();
+			} else if (board.every(cell => cell !== '')) {
+				alert("It's a tie!");
+				reset();
+			} else {
+				currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+			}
+		}
+
+		function checkWinner() {
+			for (let i = 0; i < winningCombos.length; i++) {
+				const [a, b, c] = winningCombos[i];
+				if (board[a] !== '' && board[a] === board[b] && board[b] === board[c]) {
+					return board[a];
+				}
+			}
+			return null;
+		}
+    
+		function reset() {
+			currentPlayer = 'X';
+			board = ['', '', '', '', '', '', '', '', ''];
+			cells.forEach(cell => {
+				cell.textContent = '';
+				cell.style.color = 'black';
+			});
+		}
+		cells.forEach(cell => cell.addEventListener('click', handleClick));
+	</script>
+</body>
+</html>

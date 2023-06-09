@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+    <input type="text" id="available">
+    <button onclick="get_available_values()">Get data from Array</button>
+    <p id="output"></p>
+
+ <!-- <p id="demo"></p> 
+ <input type="text" id="p">
+ <button onclick="find_university()">Get value from array</button>
+ <p id="result"></p>
+<script>
+
+    let univeristy = ['punjabuni','educationuni', 'FastUni','virtualuni '];
+    var available = document.getElementById('p').value;
+    function find_university(){
+        if(univeristy.includes(available)){
+            document.getElementById('result')
+        }
+        else{
+            alert('This university is not available');
+        }
+    }
+
+</script> -->
+<p id="demo"></p>
+<input type="text" id="uni">
+<button onclick="get_value()">Get Value From Array</button>
+<div id="result"></div>
+
+</body>
+<script>
+    var universities = ['punjab','punjab','education','virtual'];
+   function get_value(){
+    let value = document.getElementById('uni').value;
+    // let available = universities.find(function (item) {
+    //     if(item == value){
+    //         document.getElementById('demo').innerHTML = item; 
+    //         // universities.splice(index, 1);
+    //     }  
+    // })
+    // if(!available ){
+    //     alert('record not found')
+    // }
+     let is_available = false;
+     for(let i=0; i< universities.length; i++) {
+            if(value == universities[i]) {
+                is_available = true;
+            }
+     }
+    
+     document.getElementById('demo').innerHTML = is_available ? (value + ' exist in the array') : (value + ' does not exists in the array'); 
+   }
+   
+</script>
+</html>

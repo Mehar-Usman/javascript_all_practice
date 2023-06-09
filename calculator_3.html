@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        *{
+            text-align: center;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+</head>
+<body>
+    <label for="">Enter an expression:</label><br><br>
+    <input type="text" id="expression"><br><br>
+    <button id="button">Calculate</button>
+    <div id="result"></div>
+    <script>
+        const button = document.getElementById("button");
+        button.addEventListener("click", () => {
+            const input = document.getElementById("expression").value;
+            let result;
+            if (input.includes("+")) {
+                const nums = input.split("+");
+                let sum = 0;
+                for (let i = 0; i < nums.length; i++) {
+                    sum += parseFloat(nums[i]);
+                }
+                result = sum;
+            } else if (input.includes("-")) {
+                const nums = input.split("-");
+                let difference = parseFloat(nums[0]);
+                for (let i = 1; i < nums.length; i++) {
+                    difference -= parseFloat(nums[i]);
+                }
+                result = difference;
+            } else if (input.includes("*")) {
+                const nums = input.split("*");
+                let product = 1;
+                for (let i = 0; i < nums.length; i++) {
+                    product *= parseFloat(nums[i]);
+                }
+                result = product;
+            } else if (input.includes("/")) {
+                const nums = input.split("/");
+                let quotient = parseFloat(nums[0]);
+                for (let i = 1; i < nums.length; i++) {
+                    quotient /= parseFloat(nums[i]);
+                }
+                result = quotient;
+            }
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = `The result of ${input} is = ${result}.`;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .for-usman{
+            color: brown;
+            background-color: black;
+            padding: 20px;
+        }
+        .for-personal{
+            margin-top: 100px;
+            background-color: cyan;
+            padding: 30px;
+            text-align: center;
+            font-weight: bolder;
+            font-size: 50px;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="parent">
+        <!-- existing parent element -->
+      </div>
+
+      <div class="parent2">
+
+      </div>
+      
+    <script>
+      
+// Create two new child elements
+const newChild1 = document.createElement('p');
+const newChild2 = document.createElement('span');
+
+// Set attributes or properties of the new child elements
+newChild1.setAttribute('style','text-align:center; background-color:orange;')
+newChild1.textContent = 'This is a paragraph.';
+newChild2.setAttribute('class', 'text-primary');
+newChild2.textContent = 'This is a span.';
+
+// Get the parent element
+const parent = document.querySelector('.parent');
+
+// Append the new child elements to the parent
+parent.appendChild(newChild1);
+parent.appendChild(newChild2);
+
+
+var child1 = document.createElement('h1');
+var child2 = document.createElement('div');
+
+child1.setAttribute('class','for-usman')
+child1.textContent ='Hi, I Am Usman';
+let get = document.querySelector('.parent2');
+
+child2.setAttribute('class',"for-personal");
+child2.textContent = 'I Am From Lahohe "<br>" USe Break Tag';
+
+
+get.appendChild(child1);
+get.appendChild(child2);
+    </script>
+</body>
+</html>

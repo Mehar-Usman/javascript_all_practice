@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tip Calculator</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Styling for the form */
+    #tipForm {
+      margin-bottom: 20px;
+    }
+
+    /* Styling for number input fields */
+    input[type="number"] {
+      width: 100px;
+      padding: 5px;
+    }
+
+    /* Styling for the calculate button */
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+
+    /* Styling for the total tip */
+    #totalTip {
+      font-size: 24px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Tip Calculator</h1>
+  <form id="tipForm">
+    <label for="billAmount">Bill Amount ($):</label>
+    <input type="number" id="billAmount" step="0.01" required><br><br>
+
+    <label for="tipPercentage">Tip Percentage (%):</label>
+    <input type="number" id="tipPercentage" step="0.01" required><br><br>
+
+    <!-- Button to calculate the tip -->
+    <button type="button" onclick="calculateTip()">Calculate Tip</button>
+  </form>
+
+  <!-- Container for displaying the total tip -->
+  <div id="totalTip"></div>
+
+  <script>
+    function calculateTip() {
+      // Retrieve the values entered by the user
+      var billAmount = document.getElementById("billAmount").value;
+      var tipPercentage = document.getElementById("tipPercentage").value;
+
+      // Calculate the tip amount and total amount
+      var tipAmount = (billAmount * tipPercentage) / 100;
+      var totalAmount = parseFloat(billAmount) + tipAmount;
+
+      // Display the calculated tip and total amount
+      document.getElementById("totalTip").textContent = "Total Tip: $" + tipAmount.toFixed(2) + ", Total Amount: $" + totalAmount.toFixed(2);
+    }
+  </script>
+</body>
+</html>

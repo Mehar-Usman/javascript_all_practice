@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reduce function</title>
+</head>
+
+<body>
+    <p id="demo"></p>
+    <p id="demo2"></p>
+    <p id="demo3"></p>
+    <input type="text" id="inputField">
+    <button onclick="checkValue()">Check Value</button>
+
+</body>
+<script>
+    // Example 1: Summing an array of numbers using reduce()
+    const numbers = [1, 2, 3, 4, 5];
+    const sum = numbers.reduce((accumulator, currentValue) => accumulator + currentValue);
+    //  In this example, we're using the reduce() function to sum up all the numbers in an array. 
+    // The accumulator parameter starts with an initial value of 0 and is then added to each element 
+    // in the array (currentValue) until we have a final sum.
+
+    console.log(sum); // Output: 15
+
+
+
+
+    let arr = [1, 2, 3, 4, 5, 5, 5]
+    let sum2 = arr.reduce((a, b) => a + b)
+    console.log(sum2);
+
+
+
+
+    // Example 2: Flattening an array of arrays using reduce()
+    const nestedArray = [[1, 2], [3, 4], [5, 6]];
+    const flattenedArray = nestedArray.reduce((accumulator, currentValue) => accumulator.concat(currentValue), []);
+    console.log(flattenedArray); // Output: [1, 2, 3, 4, 5, 6]
+
+    //  In this example, we're using the reduce() function to flatten an array of arrays. The accumulator parameter
+    //  starts with an initial value of an empty array ([]) and is then concatenated
+    //  with each array in the nested array (currentValue).
+
+    var nestedArray2 = [[1, 2], [3, 4], [5, 6], [10, 12]];
+    var concatearray = nestedArray2.reduce((a, b) => a.concat(b), []);
+    console.log(concatearray);
+
+
+    // Example 3: Counting the occurrences of each element in an array using reduce()
+    const fruits = ['apple', 'banana', 'orange', 'banana', 'kiwi', 'kiwi', 'banana'];
+    const fruitCount = fruits.reduce((accumulator, currentValue) => {
+        if (currentValue in accumulator) {
+            accumulator[currentValue]++;
+        } else {
+            accumulator[currentValue] = 1;
+        }
+        return accumulator;
+    }, {});
+    console.log(fruitCount); // Output: { apple: 1, banana: 3, orange: 1, kiwi: 2 }
+
+
+
+
+    var vl = new Set(['a', 'b', 'c', 'd'])
+    var text = "";
+    vl.forEach(function (value) {
+        text += value + "<br>";
+    });
+
+    console.log(text);
+
+    // Create a Map
+    const fruits2 = new Map();
+
+    // Set Map Values
+    fruits2.set("apples", 500);
+    fruits2.set("bananas", 300);
+    fruits2.set("oranges", 200);
+
+    // Define an empty string variable to store the output
+    let output = "";
+
+    // Loop through all key-value pairs in the Map using the `for...of` loop
+    for (let [key, value] of fruits2) {
+        output += key + " = " + value + "<br>";
+    }
+
+    // Set the content of the <p> element to the output string
+    document.getElementById("demo").innerHTML = output;
+
+    // This code creates a new Map called fruits, sets some key-value pairs using the set() method, 
+    // and then loops through all the key-value pairs in the Map using a for...of loop.
+
+    //   Inside the loop, the code extracts the key and value variables using destructuring 
+    // assignment ([key, value]) and concatenates them into a string with some additional text.
+    //  The resulting string is added to an output variable output with a line break <br>.
+
+    //   Finally, the code sets the content of the <p> element with id="demo" to the value 
+    // of the output variable using the innerHTML property.
+
+
+
+    //  javascript objects with for in loop 
+
+    const car = {
+        make: "Honda",
+        model: "Civic",
+        year: 2020
+    };
+
+    for (let key in car) {
+        console.log(key, car[key]);
+    }
+    // Output: 
+    // make Honda
+    // model Civic
+    // year 2020
+
+
+
+    // javascript map set with for of loop
+
+    const car2 = new Map();
+    car2.set("make", "Honda");
+    car2.set("model", "Civic");
+    car2.set("year", 2020);
+
+    for (let [key, value] of car2) {
+        console.log(key, value);
+    }
+    // Output:
+    // make Honda
+    // model Civic
+    // year 2020
+
+
+    // Javascript object with for loop and use increement operator
+
+    const person = {
+        name: "Alice",
+        age: 30,
+        email: "alice@example.com"
+    };
+
+    const keys = Object.keys(person);
+    for (let i = 0; i < keys.length; i++) {
+        console.log(person[keys[i]]);
+    }
+
+    // Output: 
+    // Alice
+    // 30
+    // alice@example.com
+
+
+
+    let myObject = {
+        name: "John",
+        age: '30',
+        city: "New York"
+    };
+    // var result = []
+    function checkValue() {
+        let inputValue = document.getElementById("inputField").value;
+        // if (inputValue == myObject.name) {
+        //     document.getElementById('demo3').innerHTML = inputValue;
+        // } else {
+        //     alert("Value does not exist in object");
+        // }
+
+
+        switch (inputValue) {
+            case myObject.name:
+                document.getElementById('demo3').innerHTML = inputValue;
+                break;
+            case myObject.age:
+                document.getElementById('demo3').innerHTML = inputValue;
+                break;
+            case myObject.city:
+                document.getElementById('demo3').innerHTML = inputValue;
+                break;
+            default:
+            alert("Value does not exist in object")
+        }
+    }
+    
+
+
+//     let myObject = {
+//   name: "John",
+//   age: 30,
+//   city: "New York"
+// };
+
+// function checkValue() {
+//   let inputValue = document.getElementById("inputField").value;
+//   if (myObject.hasOwnProperty(inputValue)) {
+//     let value = myObject[inputValue];
+//     document.getElementById('demo2').innerHTML = value;
+//   } else {
+//     alert("Value does not exist in object");
+//   }
+// }
+
+</script>
+
+</html>

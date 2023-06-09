@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Array Example</title>
+</head>
+<body>
+
+
+    <label for="inputField">Enter Value for Add Array : </label>
+    <input type="text" id="inputField">
+    <button onclick="addToArray()"> Add values</button>
+    <br><br>
+    <label for="outputField">Store values of Array :</label>
+    <input type="text" id="outputField">
+        <!-- <label for="inputField">Enter a value:</label>
+        <input type="text" id="inputField">
+        <button onclick="addToArray()">Add to Array</button>
+        <br><br>
+        <label for="outputField">Values in the array:</label>
+        <input type="text" id="outputField" >
+        <script>
+            let myArray = [];
+
+            function addToArray() {
+                let inputValue = document.getElementById("inputField").value;
+                if (inputValue === "") {
+                    alert("Please enter a value!");
+                    return;
+                }
+                if (myArray.includes(inputValue)) {
+                    alert("Value already exists in array!");
+                    return;
+                }
+                myArray.push(inputValue);
+                document.getElementById("inputField").value = "";
+                document.getElementById("outputField").value = myArray.join(", ");
+            } -->
+
+
+        
+	<!-- </script> -->
+
+    <script>
+        var arr = [];
+        function addToArray(){
+            var inputValue = document.getElementById('inputField').value;
+            // console.log(inputValue)
+            if(inputValue=== ''){
+                alert('Please Enter the Value')
+                return;
+            }
+            if(arr.includes(inputValue)){
+                alert('Value Already exist in the Array')
+                return;
+            }
+           arr.push(inputValue);
+           document.getElementById('inputField').value = '';
+           document.getElementById('outputField').value=arr.join('"');
+        }
+    </script>
+</body>
+</html>

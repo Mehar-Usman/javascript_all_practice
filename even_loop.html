@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find even value with loop and array</title>
+</head>
+<body>
+    Start: <input type="number"  id="start">
+    End: <input type="number"  id="end">
+    <button onclick="Find_even()">Check Button</button>
+    <p id="result"></p>
+
+</body>
+<script>
+    function Find_even(){
+        var Start = Number(document.getElementById('start').value);
+        var End = Number(document.getElementById('end').value);
+        let  products = [];
+        for (let i = Start ; i<=End; i++){
+            if(i%2 == 0){
+                products.push(i);
+            }
+        }
+        let output = '';
+        for (i=0 ; i<products.length; i++){
+            output = output + products[i] + '<br>'
+        }
+        document.getElementById('result').innerHTML = output;
+    }
+</script>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Guess the Number</title>
+  <script>
+    var secretNumber;
+    var attemptsLeft;
+
+    function startGame() {
+      secretNumber = Math.floor(Math.random() * 10) + 1; // Generate random number between 1 and 10
+      attemptsLeft = 5;
+      document.getElementById("result").innerHTML = "";
+      document.getElementById("attempts").innerHTML = "Attempts left: " + attemptsLeft;
+      document.getElementById("guess").value = "";
+    }
+
+    function guessNumber() {
+      var guess = parseInt(document.getElementById("guess").value);
+
+      if (isNaN(guess) || guess < 1 || guess > 10) {
+        alert("Please enter a number between 1 and 10.");
+        return;
+      }
+
+      attemptsLeft--;
+
+      if (guess === secretNumber) {
+        document.getElementById("result").innerHTML = "Congratulations! You guessed the number.";
+        document.getElementById("attempts").innerHTML = "";
+        return;
+      } else if (attemptsLeft === 0) {
+        document.getElementById("result").innerHTML = "Game Over. You have run out of attempts. The secret number was " + secretNumber + ".";
+        document.getElementById("attempts").innerHTML = "";
+        return;
+      }
+
+      var message = "Incorrect guess. Try again. ";
+
+      if (guess < secretNumber) {
+        message += "The secret number is higher.";
+      } else {
+        message += "The secret number is lower.";
+      }
+
+      message += " Attempts left: " + attemptsLeft;
+
+      document.getElementById("result").innerHTML = message;
+      document.getElementById("guess").value = "";
+    }
+  </script>
+</head>
+<body>
+  <h1>Guess the Number Game</h1>
+  <p id="result"></p>
+  <p id="attempts"></p>
+  <input type="number" id="guess" placeholder="Enter your guess">
+  <button onclick="guessNumber()">Guess</button>
+  <button onclick="startGame()">Start New Game</button>
+  
+  <script>
+    startGame(); // Automatically start a new game when the page loads
+  </script>
+</body>
+</html>

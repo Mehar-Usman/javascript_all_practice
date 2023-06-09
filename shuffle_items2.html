@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shuffle items in javascript</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .box {
+            padding: 20px;
+            margin: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <input type="number" value="10" id="num" placeholder="Enter any value" text>
+        <input type="text" value="red" id="bg_color" placeholder="Background Color">
+        <input type="text" value="white" id="font_color" placeholder="Font Color">
+        <button onclick="addBox()">Add Box</button>
+        <button onclick="shuffleBoxes()">Suffle Box</button>
+        <div id="result" class="row pb-3 mt-3"></div>
+    </div>
+</body>
+<script>
+
+    var arr = [];
+    function addBox() {
+        var bg_color = document.getElementById('bg_color').value;
+        var font_color = document.getElementById('font_color').value;
+        var getnum = document.getElementById('num').value;
+
+        var newBox = document.createElement('div');
+        newBox.className = 'col-1  m-2';
+        newBox.setAttribute("onclick","getBoxData(this)");
+        newBox.style.cursor = 'pointer'
+
+        const textnode = document.createElement("span");
+         textnode.innerHTML = getnum
+         textnode.style.background = bg_color;
+         textnode.style.color = font_color;
+         textnode.style.display = 'block';
+         textnode.style.padding = '10px';
+        newBox.appendChild(textnode);     
+        document.getElementById('result').appendChild(newBox);
+    }
+
+  function shuffleBoxes() {
+    const temp_first_box = first_box.innerHTML;
+    const temp_second_box = second_box.innerHTML;        
+    first_box.innerHTML = temp_second_box;
+    second_box.innerHTML = temp_first_box;
+    resetBoxBorder();
+}
+
+function resetBoxBorder() {
+    if (first_box && second_box) {
+        let first_span = first_box.querySelector('span');
+        let second_span = second_box.querySelector('span');
+        first_span.style.border = "none";
+        second_span.style.border = "none";
+    }
+}
+
+    let first_box = null
+    let second_box = null
+    function getBoxData(e) {
+       let span = e.querySelector('span')
+       span.style.border= "3px solid blue"
+       if(first_box && second_box) {
+        first_box = null;
+        second_box = null;
+       }
+       if(!first_box) {
+        first_box = e;
+       } else {
+        second_box = e;
+       }
+    }
+    
+</script>
+
+</html>

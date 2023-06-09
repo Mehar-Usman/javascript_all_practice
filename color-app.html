@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hex Color Application</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <h1>Hex Color Application</h1>
+  <div id="colorDiv">
+    <h2>Click the button to generate a random color!</h2>
+    <button onclick="generateColor()">Generate Color</button>
+  </div>
+
+  <script>
+    function generateColor() {
+      var color = getRandomColor();
+      document.getElementById("colorDiv").style.backgroundColor = color;
+    }
+
+    function getRandomColor() {
+      var letters = "0123456789ABCDEF";
+      var color = "#";
+      for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+  </script>
+</body>
+</html>

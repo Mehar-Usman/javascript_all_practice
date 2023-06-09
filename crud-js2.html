@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crud In Javascript</title>
+</head>
+<body>
+    <div class="container my-5 ">
+        <div class="row">
+            <div class="col-4 bg-light p-3">
+                <h1>Crud practice</h1>
+                <form action="">
+                    <div class="mb-3">
+                        <label for="">Enter Name:</label><br>
+                        <input type="text" class="form-control" id="name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="">Enter Email:</label><br>
+                        <input type="text" class="form-control" id="email">
+                    </div>
+                    <input type="hidden" id="hiddenInput">
+                    <button onclick="add()" type="button" class="btn btn-primary" id="addButtonId">Add</button>
+                    <button onclick="updateData()" type="button" class="btn btn-secondary d-none" id="updateButtonId">Update</button>
+                </form>
+                
+            </div>
+        </div>
+        <div  id="showoutputid" class="row">
+
+        </div>
+    </div>
+</body>
+        <script>
+            // Create an empty array to hold the data
+
+            const emptyArray = [];
+            
+            // Function to Add new data
+
+            function add(){
+                var obj = {
+                    name:document.getElementById('name').value,
+                    email:document.getElementById('email').value,
+                }
+                console.log(obj)
+                if(obj.name !=='' && obj.email !==""){
+                    emptyArray.push(obj);
+                    output();
+                }
+                else{
+                    alert('please fill all the field')
+                }
+            }
+            function output(){
+                // Clear the Previous output
+                document.getElementById('showoutputid').innerHTML = '';
+                for(let item in emptyArray){
+                    var creatediv = document.createElement('div');
+                    var HeadingName = document.createElement('h6');
+                    HeadingName.innerHTML = 'Name:';
+                    var HeadingEmail = document.createElement('h6');
+                    HeadingEmail.innerHTML = 'Email:'
+                    var name = document.createElement('p');
+                    name.innerHTML = emptyArray[item].name;
+                    var email = document.createElement('p');
+                    email.innerHTML = emptyArray[item].email;
+                    creatediv.className = 'text-bg-secondary p-3 my-4 col-3 rounded-4 mx-2';
+                    creatediv.id = 'outputdiv' + item;
+                    //append the div element to the dom
+                    document.getElementById('showoutputid').appendChild(creatediv);
+                    document.getElementById('outputdiv'+item).appendChild(HeadingName);
+                    document.getElementById('outputdiv' + item).appendChild(name);
+                    document.getElementById('outputdiv'+item).appendChild(HeadingEmail);
+                    document.getElementById('outputdiv' +item).appendChild(email);
+                    var deleteButton = document.createElement('button');
+                    deleteButton.innerHTML = 'Delete'
+                    deleteButton.className = 'btn btn-danger ms-2'
+                    deleteButton.setAttribute('onclick','deleteData('+ item +')');
+                    var editButton = document.createElement('button');
+                    editButton.innerHTML = 'Edit';
+                    editButton.className = 'btn btn-info'
+                    editButton.setAttribute('onclick','editData('+ item +')');
+                    document.getElementById('outputdiv' + item).appendChild(editButton);
+                    document.getElementById('outputdiv' + item).appendChild(deleteButton);
+                    resetForm();
+                }
+            }
+            function resetForm(){
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+        }
+        function deleteData(id){
+            emptyArray.splice(id, 1);
+            output();
+        }
+        function editData(id){
+          let editObj = emptyArray[id];
+          let obj = {
+            name:document.getElementById('name').value = editObj.name,
+            emial:document.getElementById('email').value = editObj.email
+          }
+          document.getElementById('hiddenInput').value = id;
+          document.getElementById('addButtonId').className = 'd-none';
+          document.getElementById('updateButtonId').className = 'd-block btn btn-secondary';
+        //   output()
+        }
+        function updateData(){
+            let obj = {
+            name:document.getElementById('name').value,
+            email:document.getElementById('email').value,
+            }
+            if(obj.name !== "" && obj.email !== ""){
+                let id = document.getElementById('hiddenInput').value;
+                emptyArray[id] = obj;
+                document.getElementById('addButtonId').className = 'd-block btn btn-primary';
+                document.getElementById('updateButtonId').className = 'd-none'
+                output();
+            }
+            else{
+                alert('please fill all the fileds');
+            }
+        }
+        </script>
+</html>

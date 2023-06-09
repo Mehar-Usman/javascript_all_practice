@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <meta charset="UTF-8" />
+    <title>React Example</title>
+    <!-- Add React CDN -->
+    <script
+      src="https://unpkg.com/react@16.14.0/umd/react.production.min.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@16.14.0/umd/react-dom.production.min.js"
+      crossorigin
+    ></script>
+  </head>
+  <body>
+    <div id="root" class="text-center mt-5"></div>
+    <script>
+      // Create a React component that renders a form
+      function Form() {
+        const cities = ['New York', 'Los Angeles', 'Chicago'];
+        const skills = ['React', 'Angular', 'Vue'];
+
+        function handleSubmit(event) {
+          event.preventDefault();
+          const gender = document.getElementById('gender').value;
+          const city = document.getElementById('city').value;
+          const checkedSkills = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map((el) => el.value);
+          alert(`Selected gender: ${gender}\nSelected city: ${city}\nSelected skills: ${checkedSkills.join(', ')}`);
+        }
+
+        return React.createElement('form', { onSubmit: handleSubmit },
+          React.createElement('label', { htmlFor: 'gender' }, 'Select Gender: '),
+          React.createElement('select', { id: 'gender' },
+            React.createElement('option', { value: 'male' }, 'Male'),
+            React.createElement('option', { value: 'female' }, 'Female')
+          ),
+          React.createElement('br'),
+          React.createElement('label', { htmlFor: 'city' }, 'Select City: '),
+          React.createElement('select', { id: 'city' },
+            cities.map((city) => React.createElement('option', { value: city }, city))
+          ),
+          React.createElement('br'),
+          React.createElement('label', { htmlFor: 'skills' }, 'Select Skills: '),
+          skills.map((skill) =>
+            React.createElement('div', { key: skill },
+              React.createElement('input', { type: 'checkbox', id: skill, name: skill, value: skill }),
+              React.createElement('label', { htmlFor: skill }, skill)
+            )
+          ),
+          React.createElement('br'),
+          React.createElement('button', { type: 'submit', onClick: handleSubmit }, 'Submit')
+        );
+      }
+
+      // Render the Form component into the root div element
+      ReactDOM.render(React.createElement(Form), document.getElementById('root'));
+    </script>
+  </body>
+</html>

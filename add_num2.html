@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        *{
+            text-align: center;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Num</title>
+</head>
+<body>
+    <!-- Input field for adding two or more numbers separated by plus sign -->
+    <label for="">Add Two or More Num separated By Addition Sign :</label><br><br>
+    <input type="text" id="numbers"><br><br>
+    <!-- Button to perform addition -->
+    <button id="button">Add Num</button>
+    <!-- Display result of addition -->
+    <div id="result"></div>
+    <script>
+        const button = document.getElementById("button");
+        button.addEventListener("click", () => {
+            // Get input value from user
+            const input = document.getElementById("numbers").value;
+            // Split input value into an array of numbers
+            const nums = input.split("+");
+            let sum = 0;
+            // Loop through the array and add each number to the sum
+            for (let i = 0; i < nums.length; i++) {
+                sum += parseInt(nums[i]);
+            }
+            // Display the result to the user
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = `The sum of ${input} is = ${sum}.`;
+        });
+    </script>
+</body>
+</html>
+
+
+<!-- The sum variable is added in this code to
+     keep track of the running total of the numbers
+      as they are added together. During the iteration thr
+      ough the nums array, each number is added to the sum variable using 
+      the += operator, which is a shorthand way of writing sum = sum + parseInt(nums[i]). 
+      At the end of the loop, the final value of sum represents the total sum of all the numbers
+       in the nums array, which is then displayed to the user. Without the sum variable, there would be 
+    no way to keep track of the running total and the addition operation would not work correctly. -->

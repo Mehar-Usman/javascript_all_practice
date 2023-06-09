@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .calculator {
+  width: 400px;
+  margin: auto;
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-gap: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.display {
+  grid-column: 1 / span 4;
+  text-align: right;
+  padding: 10px;
+  font-size: 24px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.2);
+}
+
+.button {
+  font-size: 18px;
+  padding: 10px;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #ddd;
+}
+
+.clear {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.operator {
+  background-color: #4CAF50;
+  color: #fff;
+}
+
+.number {
+  background-color: #eee;
+}
+
+.calculate {
+  background-color: #2196F3;
+  color: #fff;
+  grid-row: 5 / span 1;
+  grid-column: 4 / span 1;
+}
+
+.trig {
+  background-color: #4CAF50;
+  color: #fff;
+}
+
+    </style>
+	<title>Scientific Calculator</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="calculator">
+        <input type="text">
+		<!-- <div class="display"></div> -->
+		<button class="button clear">C</button>
+		<button class="button operator">/</button>
+		<button class="button operator">*</button>
+		<button class="button number">7</button>
+		<button class="button number">8</button>
+		<button class="button number">9</button>
+		<button class="button operator">-</button>
+		<button class="button number">4</button>
+		<button class="button number">5</button>
+		<button class="button number">6</button>
+		<button class="button operator">+</button>
+		<button class="button number">1</button>
+		<button class="button number">2</button>
+		<button class="button number">3</button>
+		<button class="button operator">^</button>
+		<button class="button number">0</button>
+		<button class="button number">.</button>
+		<button class="button calculate">=</button>
+		<button class="button trig">sin</button>
+		<button class="button trig">cos</button>
+		<button class="button trig">tan</button>
+		<button class="button trig">sqrt</button>
+	</div>
+	<script >
+        // Get DOM elements
+const display = document.querySelector('input');
+const clearButton = document.querySelector('.clear');
+const operatorButtons = document.querySelectorAll('.operator');
+const numberButtons = document.querySelectorAll('.number');
+const calculateButton = document.querySelector('.calculate');
+const trigButtons = document.querySelectorAll('.trig');
+
+// State variables
+let currentOperand = '';
+let previousOperand = '';
+let currentOperator = null;
+let shouldResetDisplay = false;
+
+// Update the display
+function updateDisplay() {
+  display.value = currentOperand;
+}
+
+// Append a digit to the current operand
+function appendDigit(digit) {
+  if (currentOperand === '0' && digit === '0') return;
+  if (shouldResetDisplay) {
+    currentOperand = digit;
+    shouldResetDisplay = false;
+  } else {
+    currentOperand += digit;
+  }
+  updateDisplay();
+}
+
+// Append a decimal point to the current operand
+function appendDecimal() {
+  if (shouldResetDisplay) {
+    currentOperand = '0.';
+    shouldResetDisplay = false;
+  } else if (!currentOperand.includes('.')) {
+    currentOperand += '.';
+  }
+  updateDisplay();
+}
+
+// Set the current operator
+function setOperator(operator) {
+  if (currentOperator !== null) {
+    calculate();
+  }
+  currentOperator = operator;
+  previousOperand = currentOperand;
+  currentOperand = '';
+}
+
+// Calculate the result
+function calculate() {
+  const prev = parseFloat(previousOperand);
+  const current = parseFloat(currentOperand);
+  if (isNaN(prev) || isNaN(current)) return;
+  switch (currentOperator) {
+    case '+':
+      currentOperand = prev + current;
+      break;
+    case '-':
+      currentOperand = prev - current;
+      break;
+    case '*':
+      currentOperand = prev * current;
+      break;
+    case '/':
+      currentOperand = prev / current;
+      break;
+    case '^':
+      currentOperand = Math.pow(prev, current);
+      break;
+    default:
+      return;
+  }
+  shouldResetDisplay = true;
+  currentOperator = null;
+  updateDisplay();
+}
+
+// Clear the calculator
+function clear() {
+  currentOperand = '0';
+  previousOperand = '';
+  currentOperator = null;
+  shouldResetDisplay = false;
+  updateDisplay();
+}
+
+// Apply a trigonometric function to the current operand
+function applyTrigFunction(trigFunction) {
+  const value = parseFloat(currentOperand);
+  if (isNaN(value)) return;
+  switch (trigFunction) {
+    case 'sin':
+      currentOperand = Math.sin(value);
+      break;
+    case 'cos':
+      currentOperand = Math.cos(value);
+      break;
+    case 'tan':
+      currentOperand = Math.tan(value);
+      break;
+    case 'sqrt':
+      currentOperand = Math.sqrt(value);
+      break;
+    default:
+      return;
+  }
+  shouldResetDisplay = true;
+  updateDisplay();
+}
+
+// Attach event listeners to buttons
+numberButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    appendDigit(button.innerText);
+  });
+});
+
+operatorButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    setOperator(button.innerText);
+  });
+});
+
+trigButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    applyTrigFunction(button.innerText);
+  });
+});
+
+clearButton.addEventListener('click', clear);
+
+calculateButton.addEventListener('click', calculate);
+
+// Initialize the calculator
+clear();
+
+    </script>
+</body>
+</html>

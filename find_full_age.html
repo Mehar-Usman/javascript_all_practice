@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Get Full Age</h1>
+
+<p>Enter your birth date:</p>
+
+<input type="date" id="birthDate">
+<button onclick="calculateAge()">Calculate Age</button>
+
+<p>Your age is:</p>
+<ul>
+  <li><span id="years"></span> years</li>
+  <li><span id="months"></span> months</li>
+  <li><span id="days"></span> days</li>
+</ul>
+
+<script>
+function calculateAge() {
+  // Get the user's birth date from the input field
+  const birthDate = new Date(document.getElementById("birthDate").value);
+  
+  // Calculate the user's age
+  const now = new Date();
+  const ageInMilliseconds = now.getTime() - birthDate.getTime();
+  const ageInYears = ageInMilliseconds / (1000 * 60 * 60 * 24 * 365.25);
+  const ageInMonths = ageInYears * 12;
+  const ageInDays = ageInMilliseconds / (1000 * 60 * 60 * 24);
+  
+  // Display the user's age in years, months, and days
+  document.getElementById("years").innerHTML = Math.floor(ageInYears);
+  document.getElementById("months").innerHTML = Math.floor(ageInMonths);
+  document.getElementById("days").innerHTML = Math.floor(ageInDays);
+}
+</script>
+
+</body>
+</html>

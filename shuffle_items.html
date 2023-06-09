@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Bootstrap 5 Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <input type="number" id="num" placeholder="Enter any value">
+        <input type="text" id="bg_color" placeholder="Background Color">
+        <input type="text" id="font_color" placeholder="Font Color">
+        <button onclick="addBox()">Add Box</button>
+        <button onclick="shuffleBox()">Suffle Box</button>
+        <div id="result" class="row pb-3 mt-3">
+        </div>
+    </div>
+
+</body>
+<script>
+    var arr = [];
+    function addBox() {
+  var getnum = document.getElementById('num').value;
+  var bg_color = document.getElementById('bg_color').value;
+  var font_color = document.getElementById('font_color').value;
+  
+  // Create a new box element
+  var newBox = document.createElement('div');
+  newBox.className = 'col-1 p-3 m-2';
+  newBox.style.background = bg_color;
+  newBox.style.color = font_color;
+  newBox.textContent = getnum;
+  
+  
+  // Add event listener to the new box to toggle the "selected" class
+  newBox.addEventListener('click', function() {
+    if (this.classList.contains('selected')) {
+      this.classList.remove('selected');
+    } else {
+      this.classList.add('selected');
+    }
+  });
+  
+  // Add the new box to the result div
+  document.getElementById('result').appendChild(newBox);
+}
+
+function shuffleBox() {
+  // Get all the box elements
+  var boxes = document.querySelectorAll('#result > .col-1');
+  
+  // Get the selected box elements
+  var selectedBoxes = document.querySelectorAll('#result > .col-1.selected');
+  
+  // Create an array to hold the indices of the selected boxes
+  var indices = [];
+  for (var i = 0; i < selectedBoxes.length; i++) {
+    indices.push(Array.prototype.indexOf.call(boxes, selectedBoxes[i]));
+  }
+  
+  // Shuffle the indices array using the Fisher-Yates algorithm
+  for (var i = indices.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = indices[i];
+    indices[i] = indices[j];
+    indices[j] = temp;
+  }
+  
+  // Reorder the selected boxes based on the shuffled indices
+  var resultDiv = document.getElementById('result');
+  for (var i = 0; i < indices.length; i++) {
+    resultDiv.appendChild(boxes[indices[i]]);
+  }
+}
+
+
+
+</script>
+
+</html>

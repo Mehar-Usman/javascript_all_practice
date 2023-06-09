@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JavaScript Calendar</title>
+</head>
+<body>
+    <div>
+        <input type="date" id="date-picker">
+        <button onclick="showEvents()">Show Events</button>
+      </div>
+      
+      <div id="event-list"></div>
+      
+
+  <script>
+   // Define some sample events
+const events = [
+  { date: '2023-03-13', title: 'Event 1', description: 'Description of Event 1' },
+  { date: '2023-03-13', title: 'Event 2', description: 'Description of Event 2' },
+  { date: '2023-03-15', title: 'Event 3', description: 'Description of Event 3' },
+  { date: '2023-03-16', title: 'Event 4', description: 'Description of Event 4' },
+];
+
+// Function to show events of selected date
+function showEvents() {
+  const datePicker = document.getElementById('date-picker');
+  const selectedDate = datePicker.value;
+  const eventList = document.getElementById('event-list');
+  eventList.innerHTML = '';
+
+  // Filter events by selected date
+  const filteredEvents = events.filter(event => event.date === selectedDate);
+
+  // If no events found, show message
+  if (filteredEvents.length === 0) {
+    const message = document.createElement('p');
+    message.textContent = 'No events found for selected date.';
+    eventList.appendChild(message);
+  } else {
+    // Loop through filtered events and create list items
+    const eventItems = filteredEvents.map(event => {
+      const item = document.createElement('li');
+      const title = document.createElement('h3');
+      const description = document.createElement('p');
+      title.textContent = event.title;
+      description.textContent = event.description;
+      item.appendChild(title);
+      item.appendChild(description);
+      return item;
+    });
+
+    // Add event list items to event list container
+    eventItems.forEach(item => {
+      eventList.appendChild(item);
+    });
+  }
+}
+
+  </script>
+</body>
+</html>

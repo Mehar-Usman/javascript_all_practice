@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find leap year</title>
+</head>
+<body>
+    <label for="">Start year</label>
+    <input type="number" id="start_year">
+    <label for="">End year</label>
+    <input type="number" id="end_year">
+    <button onclick="leap_year()"> Find Leap year</button><br><br><br>
+    <div  id="result"></div>
+    
+</body>
+<script>
+    function leap_year(){
+        var get_year = document.getElementById('start_year').value;
+        var get_year2 = document.getElementById('end_year').value;
+        var arrray =[]
+            for(var i = get_year; i<=get_year2; i++){
+                if((i%4 == 0 && i % 100 != 0) || i % 400 == 0){
+                    arrray.push(i)
+                }                
+                document.getElementById('result').innerHTML = arrray.join("<br/>");
+            }
+    }
+</script>
+</html>

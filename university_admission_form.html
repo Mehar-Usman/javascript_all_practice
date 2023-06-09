@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            font-size: 25px;
+            background-color: black;
+            color: white;
+            /* padding: 10px; */
+        }
+
+        .ex2 {
+            border: 3px solid black;
+            outline-style: solid;
+            outline-color: plum;
+            outline-width: 5px;
+        }
+    </style>
+</head>
+
+
+<!--WRITE A FUNCTION TO CALCULATE GRADE FROM MARKS -->x
+
+<h1 style="font-size: 60px; font-weight: bolder; text-align: center; padding: 10px;">University Admission Form </h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6 p-5 bg-info rounded-5 mt-3 " style="height: 600px;">
+            <input type="number" class="form-control bg-black ex2 text-white" id="demo1"
+                placeholder="Enter Your Total Marks"><br>
+            <input type="number" class="form-control bg-black ex2 text-white" id="demo2"
+                placeholder="Enter Your Obtain Marks"><br>
+            <select id="universities" class="form-control bg-black ex2 text-white" onchange="findPrograms()">
+                <option value="">Select University</option>
+                <option value="punjab">Punjab University</option>
+                <option value="education">Education University</option>
+                <option value="okara">Okara University</option>
+            </select> <br>
+            <select id="programs" class="form-control bg-black ex2 text-white">
+                <option value="">Select Program</option>
+            </select> <br>
+            <button
+                style="background-color: white;color: black; font-size: 40px; font-weight: bolder; border-radius: 20px; padding: 10px;"
+                onclick="calculate_merit()">Calculate Merit
+            </button>
+        </div>
+        <div class="col-6 ">
+            <p id="result" class="p-5 rounded-5 mt-3"
+                style="background-color: aqua; height: 600px; color: black;font-weight: bolder;"></p>
+        </div>
+    </div>
+</div>
+
+<body>
+</body>
+<!-- WRITE JAAVSCRIPT CODE -->
+
+<script>
+ function find_criteria(univeristy_name, program_name) {
+    let criterias = [
+        {uni: 'punjab', program: 'bscs', criteria: 60},
+        {uni: 'punjab', program: 'bsphysics', criteria: 70},
+        {uni: 'punjab', program: 'bsbotony', criteria: 45},
+        {uni: 'education', program: 'msit', criteria: 50},
+        {uni: 'education', program: 'mbbs', criteria: 45},
+        {uni: 'education', program: 'bba', criteria: 35},
+        {uni: 'okara', program: 'bseconomicss', criteria: 45},
+        {uni: 'okara', program: 'bsit', criteria: 40},
+        {uni: 'okara', program: 'bsenglish', criteria: 35},
+     ]
+     let result = 0;
+     for(let key = 0; key < criterias.length; key++) {
+        if(criterias[key].uni == univeristy_name && criterias[key].program == program_name) {
+            result = criterias[key].criteria;
+        }
+     }
+     return result;
+ }
+
+    function calculate_merit() {
+        var total_marks = Number(document.getElementById('demo1').value);
+        var obtained_marks = Number(document.getElementById('demo2').value);
+        let univeristy = document.getElementById('universities').value;
+        let program = document.getElementById('programs').value;
+        let is_eligible = false;
+        
+        if (total_marks != '' && obtained_marks != '' && univeristy != '' && program != '') {
+            var percentage = (obtained_marks / total_marks) * 100
+            let criteria  = find_criteria(univeristy, program)
+            if(percentage >= criteria) {
+                is_eligible = true;
+            }
+            // let is_eligible = false;
+
+            // switch (univeristy) {
+            //     case 'punjab':
+            //         switch (program) {
+            //             case 'bscs':
+            //                 if (percentage >= 60) {
+            //                     is_eligible = true;
+            //                 }
+            //                 break;
+            //             case 'bsphysics':
+            //                 if (percentage >= 70) {
+            //                     is_eligible = true
+            //                 }
+            //                 break
+            //             case 'bsbotony':
+            //                 if (percentage >= 45) {
+            //                     is_eligible = true;
+            //                 }
+            //                 break
+            //         }
+            //         break;
+
+            //     case 'education':
+            //         switch (program) {
+            //             case 'msit':
+            //                 if (percentage >= 50) {
+            //                     is_eligible = true
+            //                 }
+            //                 break;
+            //             case 'mbbs':
+            //                 if (percentage >= 45) {
+            //                     is_eligible = true
+            //                 }
+            //                 break
+            //             case 'bba':
+            //                 if (percentage >= 35) {
+            //                     is_eligible = true;
+            //                 }
+            //                 break
+            //         }
+            //         break;
+
+            //     case 'okara':
+            //         switch (program) {
+            //             case 'bseconomicss':
+            //                 if (percentage >= 45) {
+            //                     is_eligible = true
+            //                 }
+            //                 break;
+            //             case 'bsit':
+            //                 if (percentage >= 50) {
+            //                     is_eligible = true
+            //                 }
+            //                 break
+            //             case 'bsenglish':
+            //                 if (percentage >= 40) {
+            //                     is_eligible = true;
+            //                 }
+            //                 break   
+            //         }
+            //         break;
+            // }
+            // case 'okara':
+            //     options = '<option value="bseconomicss">BS Economics</option> <option value="bsit">BS IT</option> <option value="bsenglish">BS English</option>';
+            //     break;
+            // case 'education':
+            //     options = '<option value="msit">MS IT</option> <option value="msbbs">MBBS</option> <option value="bba">BBA</option>';
+            //     break;
+            // default:
+            //     options = '<option value="">Select Program</option>'
+            //     break;
+
+
+            let html_output = ''
+            if (is_eligible) {
+                html_output = 'Welcome you are Eligible for the admission in ' + program + ' at ' + univeristy + ' university with the following details '+"<br> Obtained Marks :"+obtained_marks+"<br> Percentage :"+percentage + '<br> Minimum marks to apply are ' + criteria+'%';
+
+            } else {
+                html_output = 'Sorry,  you are not Eligible for the admission in ' + program + ' at ' + univeristy + ' university with the following details '+"<br> Obtained Marks :"+obtained_marks+"<br> Percentage :"+percentage + '<br> Minimum marks to apply are ' + criteria+'%';
+            }
+
+            // html_output = html_output + ' <br> Obtained Marks ' + obtained_marks;
+            // html_output = html_output + ' <br> Marks Percentage ' + percentage;
+            // html_output = html_output + ' <br> Marks Grade  N' ;
+            document.getElementById("result").innerHTML = html_output;
+        }
+        else {
+            alert('Please fill all the fields');
+        }
+    }
+
+    
+
+    function findPrograms() {
+                let univeristy = document.getElementById('universities').value;
+                var options = '';
+                switch (univeristy) {
+                    case 'punjab':
+                        options = '<option value="bscs">BSCS</option> <option value="bsphysics">BS Physics</option> <option value="bsbotony">BS Botony</option>';
+                        break;
+                    case 'okara':
+                        options = '<option value="bseconomicss">BS Economics</option> <option value="bsit">BS IT</option> <option value="bsenglish">BS English</option>';
+                        break;
+                    case 'education':
+                        options = '<option value="msit">MS IT</option> <option value="msbbs">MBBS</option> <option value="bba">BBA</option>';
+                        break;
+                    default:
+                        options = '<option value="">Select Program</option>'
+                        break;
+                }
+                document.getElementById('programs').innerHTML = options;
+            }
+</script>
+
+</html>

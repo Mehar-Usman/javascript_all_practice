@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>object in Array</title>
+</head>
+<body>
+    <h1>Find the value 0f an object in an array</h1>
+    <input type="text" id="get_value">
+    <button onclick="find_obj('name')">Click_for_name</button>
+    <button onclick="find_obj('age')">Click_for_age</button>
+    <button onclick="find_obj('city')">Click_for_city</button>
+    <div id="result"></div>
+</body>
+<script>
+           var person = [
+        { name: 'usman', age: '20Years', city: 'lahore' },
+        { name: 'zohaib', age: '22Years', city: 'Kangan Pur' },
+        { name: 'shakeel', age: '21Years', city: 'Kasur' },
+        { name: 'Waheed Bhai', age: '27Years', city: 'Islamabad' },
+        { name: 'Ikhlaq', age: '21Years', city: 'Faislabad' },
+        { name: 'Emaan', age: '18Years', city: 'Ravalpindi' },
+    ]
+    function find_obj(type){
+        var get_input_value = document.getElementById('get_value').value;
+        var find_value = null;
+        if(type == 'name'){
+            find_value = person.find((a) =>a.name == get_input_value);
+        }else if(type == 'age'){
+            find_value = person.find((a) =>a.age == get_input_value);
+        }
+    }
+</script>
+</html>

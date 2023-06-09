@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        * {
+            font-family: Verdana, Arial, Tahoma, Serif;
+        }
+
+        .setwidth {
+            width: 535px;
+        }
+    </style>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>New Crud In JavaScript</title>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 h1 text-center bg-primary text-white fw-bold">
+            Crud Demo
+        </div>
+        <div class="col-md-6 bg-success pt-5 rounded" id="form">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text fw-bold">Enter Name:</span>
+                </div>
+                <input type="text" id="name" class="form-control"/>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text fw-bold">Enter Email:</span>
+                </div>
+                <input type="email" id="email" class="form-control"/>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text fw-bold">Select Skills:</span>
+                </div>
+                <div class="ms-2">
+                    <input type="checkbox" id="conclusion" name="skills" value="Conclusion"/>
+                    <label for="conclusion" class="fw-bold mt-2 text-white ms-1">Conclusion</label>
+                    <br/>
+                    <input type="checkbox" id="critical_thinking" name="skills" value="Critical Thinking"/>
+                    <label for="critical_thinking" class="fw-bold mt-2 text-white ms-1">Critical Thinking</label>
+                    <br/>
+                    <input type="checkbox" id="leadership_skills" name="skills" value="Leadership Skills"/>
+                    <label for="leadership_skills" class="fw-bold mt-2 text-white ms-1">Leadership Skills</label>
+                    <br/>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend d-flex">
+                    <span class="input-group-text fw-bold ">Select City:</span>
+                    <select id="city" class="form-select setwidth rounded">
+                        <option value="" class="d-none"></option>
+                        <option value="Lahore">Lahore</option>
+                        <option value="Islamabad">Islamabad</option>
+                        <option value="Karachi">Karachi</option>
+                        <option value="Peshawar">Peshawar</option>
+                    </select>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend d-flex">
+                    <span class="input-group-text fw-bold">Select Gender:</span>
+                    <label for="male" class="fs-3 ms-3 text-white">
+                        <input type="radio" name="gender" id="male" value="Male"/>
+                        Male
+                    </label>
+                    <label for="female" class="fs-3 text-white ms-3">
+                        <input type="radio" name="gender" id="female" value="Female"/>
+                        Female
+                    </label>
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="save()">SAVE</button>
+        </div>
+        <div class="col-md-6 bg-secondary rounded">
+            <table class="table text-white">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Skills</th>
+                    <th>City</th>
+                    <th>Gender</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody id="tbodyitems">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    var arr = [];
+    var id = null;
+
+    function save() {
+        let obj = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            skills: getSelectedSkills(),
+            city: document.getElementById('city').value,
+            gender: getSelectedGender()
+        };
+        
+        if (id === null) {
+            arr.push(obj);
+        } else {
+            arr[id] = obj;
+        }
+        
+        listItems();
+        clearForm();
+    }
+
+    function getSelectedSkills() {
+        const checkboxes = document.getElementsByName('skills');
+        let selectedSkills = [];
+        
+        checkboxes.forEach(function (checkbox) {
+            if (checkbox.checked) {
+                selectedSkills.push(checkbox.value);
+            }
+        });
+        
+        return selectedSkills.join(', ');
+    }
+
+    function getSelectedGender() {
+        const radioButtons = document.getElementsByName('gender');
+        let selectedGender = '';
+        
+        radioButtons.forEach(function (radioButton) {
+            if (radioButton.checked) {
+                selectedGender = radioButton.value;
+            }
+        });
+        
+        return selectedGender;
+    }
+
+    function remove(index) {
+        arr.splice(index, 1);
+        listItems();
+        clearForm();
+    }
+
+    function edit(index) {
+        id = index;
+        document.getElementById('form').classList.remove('bg-success');
+        document.getElementById('form').classList.add('bg-warning');
+        document.getElementById('name').value = arr[index].name;
+        document.getElementById('email').value = arr[index].email;
+        setSkills(arr[index].skills);
+        document.getElementById('city').value = arr[index].city;
+        setGender(arr[index].gender);
+    }
+
+    function setSkills(skills) {
+        const checkboxes = document.getElementsByName('skills');
+
+        checkboxes.forEach(function (checkbox) {
+            checkbox.checked = skills.includes(checkbox.value);
+        });
+    }
+
+    function setGender(gender) {
+        const radioButtons = document.getElementsByName('gender');
+
+        radioButtons.forEach(function (radioButton) {
+            radioButton.checked = radioButton.value === gender;
+        });
+    }
+
+    function clearForm() {
+        id = null;
+        document.getElementById('form').classList.remove('bg-warning');
+        document.getElementById('form').classList.add('bg-success');
+        document.getElementById('name').value = '';
+        document.getElementById('email').value = '';
+        setSkills([]);
+        document.getElementById('city').value = '';
+        setGender('');
+    }
+
+    function listItems() {
+        let output = '';
+        
+        for (let i = 0; i < arr.length; i++) {
+            output += `
+            <tr>
+                <td>${arr[i].name}</td>
+                <td>${arr[i].email}</td>
+                <td>${arr[i].skills}</td>
+                <td>${arr[i].city}</td>
+                <td>${arr[i].gender}</td>
+                <td>
+                    <button class="btn btn-primary" onclick="edit(${i})">Edit</button>
+                    <button class="btn btn-danger" onclick="remove(${i})">Delete</button>
+                </td>
+            </tr>
+            `;
+        }
+        
+        document.getElementById('tbodyitems').innerHTML = output;
+    }
+</script>
+</html>

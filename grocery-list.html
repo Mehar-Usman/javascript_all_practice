@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grocery List</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    #groceryInput {
+      width: 200px;
+      padding: 5px;
+    }
+
+    #addButton {
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Grocery List</h1>
+  <form id="groceryForm">
+    <input type="text" id="groceryInput" placeholder="Enter an item" required>
+    <button type="button" id="addButton" onclick="addItem()">Add Item</button>
+  </form>
+
+  <ul id="groceryList"></ul>
+
+  <script>
+    function addItem() {
+      var input = document.getElementById("groceryInput");
+      var item = input.value;
+
+      if (item.trim() !== "") {
+        var listItem = document.createElement("li");
+        listItem.textContent = item;
+
+        var groceryList = document.getElementById("groceryList");
+        groceryList.appendChild(listItem);
+
+        input.value = "";
+      }
+    }
+  </script>
+</body>
+</html>

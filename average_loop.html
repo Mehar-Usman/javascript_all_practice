@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Average find</title>
+</head>
+<body>
+    <label for="">Start No</label>
+    <input type="number" id="start_num">
+    <label for="">End No</label>
+    <input type="number" id="end_num">
+    <button onclick="find_average()">Find Average</button>
+    <p id="result"></p>
+</body>
+<script>
+    function find_average(){
+        var start_num = Number(document.getElementById('start_num').value);
+        var end_num = Number(document.getElementById('end_num').value);
+        var sum = 0;
+        for(var i = start_num; i<=end_num; i++){
+            sum = sum+i;
+        }
+        var Average = sum/end_num;
+        document.getElementById('result').innerHTML = Average;
+
+    }
+</script>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Get Age</h1>
+
+<p>Enter your birth year:</p>
+
+<input type="text" id="birthYear">
+<button onclick="calculateAge()">Calculate Age</button>
+
+<p>Your age is: <span id="age"></span></p>
+
+<script>
+function calculateAge() {
+  // Get the user's birth year from the input field
+  const birthYear = document.getElementById("birthYear").value;
+  
+  // Calculate the user's age
+  const date = new Date();
+  const currentYear = date.getFullYear();
+  const age = currentYear - birthYear;
+  
+  // Display the user's age in the span with id="age"
+  document.getElementById("age").innerHTML = age;
+}
+</script>
+
+</body>
+</html>
